@@ -1,6 +1,8 @@
 networks:
   frontend:
   backend:
+  myappsnetwork:
+    external: true
 
 volumes:
   pgdata:
@@ -54,11 +56,12 @@ services:
     image: openproject/proxy
     <<: *restart_policy
     ports:
-      - "${PORT:-8080}:80"
+      - "${PORT:-}:80"
     depends_on:
       - web
     networks:
       - frontend
+      - myappsnetwork
 
   web:
     <<: *app
